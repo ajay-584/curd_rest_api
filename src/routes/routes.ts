@@ -1,8 +1,7 @@
 import * as express from 'express';
 import * as redis from './redidHelper';
 import * as db  from '../models/todo.model';
-import { parse } from 'url';
-
+import * as jwt from './jwtHelper';
 class routeController {
     public router = express.Router();
     constructor(){
@@ -37,7 +36,15 @@ class routeController {
             console.log(title, desc);
             const sql = "insert into todo (title, description) values (' "  + title +  " ', ' "  + desc + " ' )";
             const data:any = await db.default.pdo(sql);
-            res.status(200).json(data);
+            const tokenData = {
+                "title":"token title",
+                "descriptin":"descritption of token"
+            };
+            const token = await jwt.default.generateToken(tokenData);
+            // console.log(token);
+            const verfy = await jwt.default.verfyToken(String(token));
+            console.log(verfy);
+            res.status(200).json({message:'Data inserted'});
         }catch(e){
             res.status(502).json(e);
         }   
@@ -50,7 +57,7 @@ class routeController {
             // console.log(req.body);
             const sql = "update todo set title = ' " + title + " ', description = ' " + desc + " ' where id = ' "  + String(id) +  " ' ";
             const data:any = await db.default.pdo(sql);
-            res.status(200).json(data);
+            res.status(200).json({message:'Data updated'});
         }catch(e){
             res.status(502).json(e);
         }
@@ -61,7 +68,7 @@ class routeController {
             console.log(id);
             const sql = "delete from todo where id = ' "  + String(id) +  " ' ";
             const data:any = await db.default.pdo(sql);
-            res.status(200).json(data);
+            res.status(200).json({message:'Data has been deleted.'});
         }catch(e){
             res.status(502).json(e);
         }
