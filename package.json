@@ -1,0 +1,31 @@
+{
+  "name": "curd_api_typescrpt",
+  "version": "1.0.0",
+  "description": "This is curd application using typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "node public/app.js",
+    "dev": "nodemon src/app.ts",
+    "build": "tsc -p ."
+  },
+  "author": "Ajay",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.12",
+    "@types/mysql": "^2.15.18",
+    "@types/node": "^15.12.1",
+    "@types/redis": "^2.8.30",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
+    "redis": "^3.1.2",
+    "swagger-ui-express": "^4.1.6",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  },
+  "devDependencies": {
+    "@types/swagger-ui-express": "^4.1.2"
+  }
+}

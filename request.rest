@@ -1,0 +1,2 @@
+GET http://localhost:3000
+POST http://localhost:3000/add?title=title&description=desc

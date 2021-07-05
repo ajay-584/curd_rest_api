@@ -1,0 +1,172 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Simple CURD API",
+    "description": "This is curd api for todo",
+    "version": "1.0.0"
+  },
+  "produces": ["application/json"],
+  "server": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "host": "localhost:3000",
+  "schemes": ["http"],
+  "paths": {
+    "/todo": {
+      "get": {
+        "tags": ["CURD API"],
+        "summary": "View to do list",
+        "responses": {
+          "200": {
+            "description": "A json array of user name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "item": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is some erro to retrive data form db"
+          }
+        }
+      },
+      "post": {
+        "tags": ["CURD API"],
+        "summary": "add new data in todo db",
+        "requestBody": {
+          "description": "This api used to add new data in todo db",
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "data has been inserted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is error to insert data in table"
+          }
+        }
+      },
+      "put": {
+        "tags": ["CURD API"],
+        "summary": "update existing data in todo db",
+        "requestBody": {
+          "description": "This api used to update new data in todo db",
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "data has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is error to update data in table"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CURD API"],
+        "summary": "delete existing data in todo db",
+        "requestBody": {
+          "description": "This api used to delete new data in todo db",
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "data has been Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is error to delete data in table"
+          }
+        }
+      }
+    }
+  }
+}
