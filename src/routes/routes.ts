@@ -16,6 +16,7 @@ class routeController {
     }
     private show = async (req:express.Request, res: express.Response)=>{
         try{
+            console.log(req.cookies);
             const sql = 'select * from todo';
             const data = await db.default.pdo(sql);
             redis.default.setString('todolist', JSON.stringify(data), 1);
@@ -33,7 +34,7 @@ class routeController {
         try{
             const title = req.body.title;
             const desc = req.body.description;
-            console.log(title, desc);
+            // console.log(title, desc);
             const sql = "insert into todo (title, description) values (' "  + title +  " ', ' "  + desc + " ' )";
             const data:any = await db.default.pdo(sql);
             const tokenData = {
@@ -42,8 +43,12 @@ class routeController {
             };
             const token = await jwt.default.generateToken(tokenData);
             // console.log(token);
-            const verfy = await jwt.default.verfyToken(String(token));
-            console.log(verfy);
+            const verify = await jwt.default.verfyToken(String(token));
+            // console.log(verfy);
+            res.cookie("jwt", token, {
+                expires: new Date(Date.now() + 30000),
+                httpOnly:true
+            });
             res.status(200).json({message:'Data inserted'});
         }catch(e){
             res.status(502).json(e);
