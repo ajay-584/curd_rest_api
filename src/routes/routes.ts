@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as redis from './redidHelper';
 import * as db  from '../models/todo.model';
 import * as jwt from './jwtHelper';
-import { log } from 'console';
+import auth  from './auth'
 class routeController {
     public router = express.Router();
     constructor(){
@@ -10,14 +10,14 @@ class routeController {
         }
     public initializeRoutes(): void {
         this.router.all('/todo/*')
-        .get('/todo', this.show)
+        .get('/todo', auth, this.show)
         .post('/todo', this.add)
         .put('/todo', this.update)
         .delete('/todo', this.delete);
     }
     private show = async (req:express.Request, res: express.Response)=>{
         try{
-            // console.log(req.cookies);
+            // console.log(req.cookies.jwt);
             const redisdata = await redis.default.getString('todolist');
             const newdata = String(redisdata);
             if(redisdata){
@@ -41,13 +41,10 @@ class routeController {
             const sql = "insert into todo (title, description) values (' "  + title +  " ', ' "  + desc + " ' )";
             const data:any = await db.default.pdo(sql);
             const tokenData = {
-                "title":"token title",
-                "descriptin":"descritption of token"
+                "id":"123456789",
+                "name":"ajay"
             };
             const token = await jwt.default.generateToken(tokenData);
-            // console.log(token);
-            const verify = await jwt.default.verfyToken(String(token));
-            // console.log(verfy);
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 30000),
                 httpOnly:true

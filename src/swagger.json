@@ -14,6 +14,32 @@
   ],
   "host": "localhost:3000",
   "schemes": ["http"],
+  "component":{
+    "securitySchemes":{
+      "JWT":{
+        "type":"token",
+        "name":"jwt",
+        "in":"cookies",
+        "description":"jwt token to access todo list"
+      }
+    },
+    "schemas":{
+      "todo_list":{
+        "type":"object",
+        "properties":{
+          "title":{
+            "type":"string"
+          },
+          "description":{
+            "type":"string"
+          }
+        }
+      }
+    },
+    "security":{
+      "JWT":[]
+    }
+  },
   "paths": {
     "/todo": {
       "get": {
@@ -27,7 +53,7 @@
                 "schema": {
                   "type": "object",
                   "item": {
-                    "type": "array"
+                    "$ref": "#/component/schemas/todo_list"
                   }
                 }
               }
