@@ -5,6 +5,7 @@ import * as router from './routes/routes';
 import * as mysql from 'mysql';
 import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from './swagger.json';
+import * as cookieParser from 'cookie-parser';
 import { Server } from 'http';
 dotenv.config();
 class App {
@@ -19,6 +20,7 @@ class App {
     private initializeMiddlewares(){
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false}));
+        this.app.use(cookieParser());
         this.app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
         this.app.use('/',this.route);
     }

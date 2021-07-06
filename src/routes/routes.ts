@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as redis from './redidHelper';
 import * as db  from '../models/todo.model';
 import * as jwt from './jwtHelper';
+import { log } from 'console';
 class routeController {
     public router = express.Router();
     constructor(){
@@ -16,15 +17,17 @@ class routeController {
     }
     private show = async (req:express.Request, res: express.Response)=>{
         try{
-            console.log(req.cookies);
-            const sql = 'select * from todo';
-            const data = await db.default.pdo(sql);
-            redis.default.setString('todolist', JSON.stringify(data), 1);
+            // console.log(req.cookies);
             const redisdata = await redis.default.getString('todolist');
             const newdata = String(redisdata);
             if(redisdata){
+                console.log('redisdata');
                 return res.status(200).json(JSON.parse(newdata));
             }
+            const sql = 'select * from todo';
+            const data = await db.default.pdo(sql);
+            redis.default.setString('todolist', JSON.stringify(data), 1);
+            console.log('without redisdata');
             return res.status(200).json(data);
         }catch(e){
             console.error(e);
