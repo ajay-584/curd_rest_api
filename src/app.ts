@@ -1,3 +1,4 @@
+import './config/index'
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';

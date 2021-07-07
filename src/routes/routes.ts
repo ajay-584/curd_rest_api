@@ -1,8 +1,8 @@
 import * as express from 'express';
-import * as redis from './redidHelper';
+import * as redis from '../helper/redidHelper';
 import * as db  from '../models/todo.model';
-import * as jwt from './jwtHelper';
-import auth  from './auth'
+import * as jwt from '../helper/jwtHelper';
+import auth  from '../middleware/auth'
 class routeController {
     public router = express.Router();
     constructor(){

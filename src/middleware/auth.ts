@@ -1,11 +1,11 @@
 import {Request, Response, NextFunction} from 'express';
-import * as jwtHelper from './jwtHelper';
+import * as jwtHelper from '../helper/jwtHelper';
 
 
 const auth = async(req:Request, res:Response, next:NextFunction)=>{
     try{
         const token = req.cookies.jwt;
-        if(token === undefined){
+        if(!token){
             return res.status(405).json({
                 "message":"invalid authentication"
             });

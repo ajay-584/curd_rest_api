@@ -1,11 +1,12 @@
+import '../config/index';
+import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
-
-
-
+console.log(process.env.PORT);
+dotenv.config();
 class JwtHelper {
     private key: string;
     constructor(){
-        this.key = 'asldf5546@df';
+        this.key = 'jlksdjf5465adsf5asdf345#$';
     }
 
     public generateToken(data:object, exprire:object = { expiresIn:'10h'}){
