@@ -2,7 +2,8 @@ import * as express from 'express';
 import * as redis from '../helper/redidHelper';
 import * as db  from '../models/todo.model';
 import * as jwt from '../helper/jwtHelper';
-import auth  from '../middleware/auth'
+import auth  from '../middleware/auth';
+import * as rabbitmq from '../helper/rabbitmqHelper';
 class routeController {
     public router = express.Router();
     constructor(){
@@ -18,6 +19,7 @@ class routeController {
     private show = async (req:express.Request, res: express.Response)=>{
         try{
             // console.log(req.cookies.jwt);
+            rabbitmq.default.assertQueue('queue');
             const redisdata = await redis.default.getString('todolist');
             const newdata = String(redisdata);
             if(redisdata){

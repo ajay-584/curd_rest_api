@@ -14,3 +14,9 @@ export const RESPONSE = {
     GATEWAYTIMEOUT : 504, 
 };
 
+export const RES_MSG = {
+    INSERT : 'Data save successfully',
+    ERROR : 'Oops! Something went wrong. Please try again',
+    UPDATE : 'Data has been updated successfully',
+    DELETE : 'Data has been deleted successfully',
+}
